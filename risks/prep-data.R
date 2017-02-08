@@ -1,9 +1,11 @@
 # Prep risk factor data
 
 # Set up
+install.packages("zoo")
+
 library(dplyr)
 library(zoo)
-setwd('~/Documents/info-498c/demos/risks/')
+setwd('~/Documents/UW/Courses/2016-17/Winter/INFO_498/demos/risks/')
 risks <- read.csv("./data/raw/appendix-6a.csv", stringsAsFactors = FALSE)
 
 # Track category (currently captured in blank rows)
