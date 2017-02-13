@@ -1,7 +1,7 @@
 # Calculate survey weighted estimates
 
 # Set up
-setwd('~/Documents/info-498c/demos/nhanes-analysis/')
+setwd('~/Documents/UW/Courses/2016-17/Winter/INFO_498/demos/nhanes-analysis/')
 # library(foreign)
 library(survey)
 library(dplyr)
@@ -17,10 +17,10 @@ alcohol <- sasxport.get('./data/ALQ_H.XPT')
 nhanes <- left_join(alcohol, demographics, by='seqn')
 
 # Take the sum of the weighting column `wtint2yr` - what is this number?
-
+sum(nhanes$wtint2yr) # Number of people being represented in this study
 
 # Create a survey design that indicates the id, strata, and weights
-
+nhanes.weighted <- svydesign(id=~seqn, strata=~sdmvstra, weights=~wtint2yr, data=nhanes, nest = TRUE)
 
 # Using the codebook, find the question that asks about 12+ drinks in the last year
 
