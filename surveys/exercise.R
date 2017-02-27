@@ -7,10 +7,10 @@ library(ggplot2)
 data(api)
 
 # How many schools are in the full dataset?
-
+nrow(apipop) # --> 6194
 
 # How many districts are there in the dataset (dnum)?
-
+n_distinct(apipop$dnum) # --> 757
 
 
 
@@ -21,35 +21,37 @@ data(api)
 
 
 # Use the `table` function to see how many schools are selected by school type (stype)
-
+stype_strat <- table(apistrat$stype) # --> E: 100, H: 50, M: 50
 
 # How does this compare the to breakdown of the fractions of school type in the full dataset?
-
+stype_pop <- table(apipop$stype) # --> E: 4421, H: 755, M: 1018
 
 # Given that we sample by strata, what are the *probability weights* for each observation?
-
+prob_wts <- stype_pop/stype_strat
 
 # What is the sum of probability weights column in the dataset?
-
+sum(apistrat$pw) # --> 6194
 
 # Use the `table` function to see how probability weight varies by stype
-
+table(apistrat$pw, apistrat$stype)
 
 # Specify a stratified design 
 # We need to know stype, pw, AND fpc (# of schools of that type in pop)
-
+api_design <- svydesign(id=~1, strata=~stype, weights=~pw, fpc=~fpc, data=apistrat)
 
 # Specify a design without the finite population correction
 # We don't really need to know the fpc to calculate the mean, it only affects the standard error
+api_design_nofpc <- svydesign(id=~1, strata=~stype, weights=~pw, data=apistrat)
 
 # Compute the mean academic performance index (api) in 2000 in the full dataset
-
+mean(apipop$api00) # --> 664.7126
 
 # Using the stratified dataset, compute the unweighted mean api in 2000 
-
+mean(apistrat$api00) # --> 652.82
 
 # Compute the survey weighted mean api (using designs with/without FPC)
-
+svymean(~api00, api_design)
+svymean(~api00, api_design_nofpc)
 
 
 ############################################################
