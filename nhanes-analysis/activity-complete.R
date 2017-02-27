@@ -1,8 +1,8 @@
 # Calculate survey weighted estimates
 
 # Set up
-setwd('~/Documents/info-498c/demos/nhanes-analysis/')
-# library(foreign)
+setwd('~/Documents/UW/Courses/2016-17/Winter/INFO_498/demos/nhanes-analysis/')
+
 library(survey)
 library(dplyr)
 library(Hmisc)
