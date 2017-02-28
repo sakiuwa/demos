@@ -50,8 +50,8 @@ mean(apipop$api00) # --> 664.7126
 mean(apistrat$api00) # --> 652.82
 
 # Compute the survey weighted mean api (using designs with/without FPC)
-svymean(~api00, api_design)
-svymean(~api00, api_design_nofpc)
+svymean(~api00, api_design) # --> mean:662.29  SE: 9.4089
+svymean(~api00, api_design_nofpc) # --> mean:662.29  SE: 9.5361
 
 
 ############################################################
